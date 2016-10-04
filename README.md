@@ -45,7 +45,8 @@ the spotify-web-api-node library.
 npm install promise-retryify --save
 ```
 
-Node is supported. Browsers are not supported at the moment. It would require:
+Only Node 6 works. See [this issue](https://github.com/kimmobrunfeldt/promise-retryify/issues/1).
+Browsers are not supported at the moment. It would require:
 
 * Promise polyfill / use Bluebird Promises
 * Transpile the src/index.js to ES5
