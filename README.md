@@ -106,6 +106,49 @@ listed below are the defaults.
 }
 ```
 
+## Examples
+
+Example configurations, using Spotify API as the wrapped library.
+Assume that these modules have been require'd:
+
+```js
+const SpotifyWebApi = require('spotify-web-api-node');
+const promiseRetryify = require('promise-retryify');
+```
+
+### Exponential backoff
+
+```js
+const spotify = new SpotifyWebApi({ /* options .. */ });
+const retryingSpotify = promiseRetryify(spotify, {
+  // 1sec, 2secs, 4secs, 8secs, 16secs, 32secs ...
+  retryTimeout: (retryCount) => Math.pow(2, retryCount) * 1000
+});
+```
+
+### Omit "private" attributes
+
+*There's no such thing as real private in JavaScript but underscore prefix
+is used to communicate privateness.*
+
+```js
+const spotify = new SpotifyWebApi({ /* options .. */ });
+const retryingSpotify = promiseRetryify(spotify, {
+  // Omit "private" methods
+  attributePicker: attrName => attrName[0] !== '_',
+});
+```
+
+### Infinite retries
+
+```js
+const spotify = new SpotifyWebApi({ /* options .. */ });
+const retryingSpotify = promiseRetryify(spotify, {
+  maxRetries: Infinity
+  // Note: shouldRetry can be used to stop retrying on certain errors
+});
+```
+
 ## License
 
 MIT
