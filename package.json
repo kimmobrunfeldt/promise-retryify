@@ -1,0 +1,37 @@
+{
+  "name": "promise-retryify",
+  "version": "0.1.0",
+  "description": "Add retry functionality to any Promise based library",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimmobrunfeldt/promise-retryify.git"
+  },
+  "keywords": [
+    "retry",
+    "promise",
+    "retryify",
+    "patch",
+    "backoff"
+  ],
+  "author": "Kimmo Brunfeldt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kimmobrunfeldt/promise-retryify/issues"
+  },
+  "homepage": "https://github.com/kimmobrunfeldt/promise-retryify#readme",
+  "dependencies": {
+    "lodash": "^4.16.3"
+  },
+  "devDependencies": {
+    "eslint": "^3.5.0",
+    "eslint-config-airbnb-base": "^7.1.0",
+    "eslint-plugin-import": "^1.15.0",
+    "mocha": "^3.0.2",
+    "releasor": "^1.2.1"
+  },
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint ./src ./test"
+  }
+}
