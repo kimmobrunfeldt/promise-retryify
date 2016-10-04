@@ -31,7 +31,7 @@
     "releasor": "^1.2.1"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --harmony",
     "lint": "eslint ./src ./test"
   }
 }
