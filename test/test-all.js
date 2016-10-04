@@ -1,7 +1,9 @@
 const assert = require('assert');
 const retryWrap = require('../src/index');
 
-const moduleX = function create(opts = {}) {
+const moduleX = function create(_opts) {
+  const opts = _opts || {};
+
   let failsLeft = opts.failCount || 5;
   function asyncOperation() {
     if (failsLeft === 0) {
