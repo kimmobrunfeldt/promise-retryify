@@ -23,7 +23,8 @@ const spotify = new SpotifyWebApi({ /* options .. */ });
 const retryingSpotify = promiseRetryify(spotify);
 
 // Voila! We have now a clone of the Spotify API, which supports retrying of
-// API calls. It just works.
+// API calls. The API is exactly the same as in the original library, but it
+// transparently retries failed calls.
 retryingSpotify.searchTracks('Adele')
   .then(result => console.log(result))
   .catch(err => {
