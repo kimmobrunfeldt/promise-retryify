@@ -36,6 +36,8 @@ The above is often not enough and you need more customization.
 [See a real-life example](examples/retrying-spotify.js) of wrapping
 the spotify-web-api-node library.
 
+[More examples here](#examples).
+
 ## Install
 
 ```bash
