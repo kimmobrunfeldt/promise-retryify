@@ -45,6 +45,8 @@ the spotify-web-api-node library.
 npm install promise-retryify --save
 ```
 
+Node is supported. For browsers, you need to run the src/index.js through Babel.
+
 ## API
 
 ### promiseRetryify(object, [opts])
