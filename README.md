@@ -45,7 +45,10 @@ the spotify-web-api-node library.
 npm install promise-retryify --save
 ```
 
-Node is supported. For browsers, you need to run the src/index.js through Babel.
+Node is supported. Browsers are not supported at the moment. It would require:
+
+* Promise polyfill / use Bluebird Promises
+* Transpile the src/index.js to ES5
 
 ## API
 
