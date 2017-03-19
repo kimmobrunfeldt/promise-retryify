@@ -131,7 +131,7 @@ const promiseRetryify = require('promise-retryify');
 ### Wrapping single function
 
 ```js
-const readFileAsync = BPromise.promisify(require(fs).readFile)
+const readFileAsync = BPromise.promisify(require('fs').readFile)
 const retryingRead = promiseRetryify(readFileAsync);
 // Now when calling `retryingRead`, it will retry file reading
 // with default options
