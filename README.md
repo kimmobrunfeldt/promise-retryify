@@ -114,7 +114,12 @@ listed below are the defaults.
   //  false: attribute should be left as is
   // Function gets the object attribute name as the first parameter.
   // Has no effect if passed `object` is a Function.
-  attributePicker: attrKey => true
+  attributePicker: attrKey => true,
+
+  // Function which is called if all calls failed.
+  // Function gets the error object of the last retry call as the first
+  // parameter.
+  onAllFailed: lastErr => console.log('All calls failed!');
 }
 ```
 

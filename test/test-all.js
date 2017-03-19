@@ -186,4 +186,52 @@ describe('retryWrap', () => {
         assert.strictEqual(xMod.getFailsLeft(), 0);
       });
   });
+
+  it('opts.onAllFailed should be called when every call fails', () => {
+    const xMod = moduleX({ failCount: 5 });
+
+    let allFailedCalled = false;
+    const wrapped = retryWrap(
+      xMod.asyncOperation,
+      {
+        maxRetries: 1,
+        retryTimeout: () => 10,
+        onAllFailed: () => {
+          allFailedCalled = true;
+        },
+      }
+    );
+
+    return wrapped()
+      .then(() => {
+        throw new Error('This should never happen. Operation should not succeed.');
+      })
+      .catch(() => {
+        assert.strictEqual(allFailedCalled, true);
+      });
+  });
+
+  it('opts.onAllFailed should not be called when call succeeds', () => {
+    const xMod = moduleX({ failCount: 2 });
+
+    let allFailedCalled = false;
+    const wrapped = retryWrap(
+      xMod.asyncOperation,
+      {
+        maxRetries: 5,
+        retryTimeout: () => 10,
+        onAllFailed: () => {
+          allFailedCalled = true;
+        },
+      }
+    );
+
+    return wrapped()
+      .then(() => {
+        throw new Error('This should never happen. Operation should not succeed.');
+      })
+      .catch(() => {
+        assert.strictEqual(allFailedCalled, false);
+      });
+  });
 });

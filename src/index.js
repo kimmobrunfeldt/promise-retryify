@@ -40,6 +40,10 @@ function createRetryFunction(originalObj, func, opts) {
           });
         }
 
+        if (_.isFunction(opts.onAllFailed)) {
+          opts.onAllFailed(err);
+        }
+
         throw err;
       });
     }
@@ -73,6 +77,8 @@ function retryWrap(obj, _opts) {
     retryTimeout: tryCount => 500,
 
     attributePicker: attrKey => true,
+
+    onAllFailed: err => null,
   }, _opts);
 
   if (_.isFunction(obj)) {
