@@ -41,7 +41,7 @@ function createRetryFunction(originalObj, func, opts) {
         }
 
         if (_.isFunction(opts.onAllFailed)) {
-          opts.onAllFailed(err);
+          opts.onAllFailed.apply(originalObj, [err].concat(args));
         }
 
         throw err;

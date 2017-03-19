@@ -119,7 +119,8 @@ listed below are the defaults.
   // Function which is called if all calls failed.
   // Function gets the error object of the last retry call as the first
   // parameter.
-  onAllFailed: lastErr => console.log('All calls failed!');
+  // Rest parameters match to the original function's parameters
+  onAllFailed: (lastErr, param1, param2) => console.log('All calls failed!');
 }
 ```
 

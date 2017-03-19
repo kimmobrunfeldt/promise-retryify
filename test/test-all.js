@@ -190,24 +190,28 @@ describe('retryWrap', () => {
   it('opts.onAllFailed should be called when every call fails', () => {
     const xMod = moduleX({ failCount: 5 });
 
-    let allFailedCalled = false;
+    let allFailedCallParams = [];
     const wrapped = retryWrap(
       xMod.asyncOperation,
       {
         maxRetries: 1,
         retryTimeout: () => 10,
-        onAllFailed: () => {
-          allFailedCalled = true;
+        onAllFailed: (err, first, second, third, fourth) => {
+          allFailedCallParams = [err, first, second, third, fourth];
         },
       }
     );
 
-    return wrapped()
+    return wrapped(1, 2, 'a', [3, 4])
       .then(() => {
         throw new Error('This should never happen. Operation should not succeed.');
       })
       .catch(() => {
-        assert.strictEqual(allFailedCalled, true);
+        assert.strictEqual(allFailedCallParams[0].message, 'Fail');
+        assert.strictEqual(allFailedCallParams[1], 1);
+        assert.strictEqual(allFailedCallParams[2], 2);
+        assert.strictEqual(allFailedCallParams[3], 'a');
+        assert.deepStrictEqual(allFailedCallParams[4], [3, 4]);
       });
   });
 
