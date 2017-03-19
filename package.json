@@ -1,6 +1,6 @@
 {
   "name": "promise-retryify",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Add retry functionality to any Promise based library",
   "main": "src/index.js",
   "repository": {
