@@ -75,6 +75,14 @@ function retryWrap(obj, _opts) {
     attributePicker: attrKey => true,
   }, _opts);
 
+  if (_.isFunction(obj)) {
+    return _retryWrapFunction(obj, opts);
+  }
+
+  return _retryWrapObject(obj, opts);
+}
+
+function _retryWrapObject(obj, opts) {
   const objCopy = {};
 
   // Intentionally also iterate through prototype properties, not just own
@@ -90,6 +98,10 @@ function retryWrap(obj, _opts) {
   }
 
   return objCopy;
+}
+
+function _retryWrapFunction(func, opts) {
+  return _.bind(createRetryFunction(func, func, opts), func);
 }
 
 module.exports = retryWrap;

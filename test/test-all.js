@@ -172,4 +172,18 @@ describe('retryWrap', () => {
         assert.strictEqual(wrapped.getFailsLeft(), 1);
       });
   });
+
+  it('retrying should work for single function', () => {
+    const xMod = moduleX({ failCount: 5 });
+    const wrapped = retryWrap(
+      xMod.asyncOperation,
+      { retryTimeout: () => 10 }
+    );
+
+    return wrapped()
+      .then((res) => {
+        assert.strictEqual(res, 'Success');
+        assert.strictEqual(xMod.getFailsLeft(), 0);
+      });
+  });
 });

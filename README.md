@@ -55,20 +55,22 @@ Browsers are not supported at the moment. It would require:
 
 ### promiseRetryify(object, [opts])
 
-Returns a clone of `object` where each function attribute has been wrapped to
+If `object` is a JS Object, returns a clone of `object` where each function attribute has been wrapped to
 retry when a rejected Promise is returned. Also `object`'s **prototype**
 methods are iterated. Note that the `object` is **not** deeply traversed, only
 the first-level attributes are iterated.
 
+If `object` is a Function, returns a new wrapper function which retries when a rejected Promise is returned from the original function.
+
 `opts.attributePicker` may be used to customize
-which functions are wrapped. All non-function attributes are left as is.
+which functions are wrapped. All non-function attributes are left as is. Has no effect if passed `object` is a Function.
 
 Retrying is done only when a function returns Promise object. Other values
 are ignored.
 
 #### `object`
 
-Any Object which can be iterated with a `for` loop.
+May be a JS Object or Function. Object should be iterable with a `for` loop.
 
 #### `opts`
 
@@ -111,6 +113,7 @@ listed below are the defaults.
   //  true:  attribute should be wrapped with retry
   //  false: attribute should be left as is
   // Function gets the object attribute name as the first parameter.
+  // Has no effect if passed `object` is a Function.
   attributePicker: attrKey => true
 }
 ```
@@ -123,6 +126,15 @@ Assume that these modules have been require'd:
 ```js
 const SpotifyWebApi = require('spotify-web-api-node');
 const promiseRetryify = require('promise-retryify');
+```
+
+### Wrapping single function
+
+```js
+const readFileAsync = BPromise.promisify(require('fs').readFile)
+const retryingRead = promiseRetryify(readFileAsync);
+// Now when calling `retryingRead`, it will retry file reading
+// with default options
 ```
 
 ### Exponential backoff
