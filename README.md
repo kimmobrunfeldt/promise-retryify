@@ -9,7 +9,7 @@
 
 **Features**
 
-* Works with any library / module / object which has methods that return Promises
+* Works with any library / module / object which has methods that return Promises. Also individual functions can be retryified.
 * Everything can be highly customized, including backoff strategy
 * Doesn't mutate given object
 
