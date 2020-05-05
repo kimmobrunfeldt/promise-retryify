@@ -5,7 +5,7 @@ const moduleX = function create(_opts) {
   const opts = _opts || {};
 
   let failsLeft = opts.failCount || 5;
-  function asyncOperation() {
+  function asyncOperation(a, b) {
     if (failsLeft === 0) {
       if (opts.cycle) {
         failsLeft = opts.failCount || 5;
@@ -100,16 +100,17 @@ describe('retryWrap', () => {
       {
         maxRetries: Infinity,
         retryTimeout: () => 10,
-        beforeRetry: (tryCount) => {
+        beforeRetry: (tryCount, args) => {
           beforeCalled = true;
           assert.strictEqual(tryCount, 1);
+          assert.deepStrictEqual(args, ['a', 'b']);
 
           return new Promise(resolve => setTimeout(resolve, 100));
         },
       }
     );
 
-    return wrapped.asyncOperation()
+    return wrapped.asyncOperation('a', 'b')
       .then(() => {
         assert.strictEqual(beforeCalled, true);
       });

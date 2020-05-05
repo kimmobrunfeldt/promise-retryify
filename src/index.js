@@ -25,7 +25,7 @@ function createRetryFunction(originalObj, func, opts) {
             retryThis.retries += 1;
 
             setTimeout(() => {
-              Promise.resolve(opts.beforeRetry(retryThis.retries))
+              Promise.resolve(opts.beforeRetry(retryThis.retries, args))
                 // Recursively call `retry` function
                 // XXX: We are assuming that all subsequent calls of `func`
                 //      return a Promise too.
